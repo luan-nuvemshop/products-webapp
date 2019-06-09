@@ -23,9 +23,13 @@
                 <td><img src="" alt="" class="img-thumbnail" width="75"></td>
                 <td>{{ $row->name }}</td>
                 <td>
-                    <button class="btn btn-success">Show</button>
-                    <button class="btn btn-warning">Edit</button>
-                    <button class="btn btn-danger">Delete</button>
+                    <a href="{{ route('product.show', $row->id) }}" class="btn btn-primary btn-sm">Show</a>
+                    <a href="{{ route('product.edit', $row->id) }}" class="btn btn-warning btn-sm">Edit</a>
+                    <form action="{{ route('product.destroy', $row->id) }}" method="post" style="display: contents;">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
                 </td>
             </tr>
         @endforeach

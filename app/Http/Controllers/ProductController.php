@@ -64,7 +64,8 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        //
+        $data = Product::findOrFail($id);
+        return view('show', compact('data'));
     }
 
     /**
@@ -75,7 +76,8 @@ class ProductController extends Controller
      */
     public function edit($id)
     {
-        //
+        $data = Product::findOrFail($id);
+        return view('edit', compact('data'));
     }
 
     /**
@@ -87,7 +89,23 @@ class ProductController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $request->validate([
+            'name' => 'required',
+            'description' => 'required',
+            'price' => 'required',
+            'category' => 'required'
+        ]);
+
+        $form_data = array(
+            'name' => $request->name,
+            'description' => $request->description,
+            'price' => $request->price,
+            'category' => $request->category
+        );
+
+        Product::whereId($id)->update($form_data);
+
+        return redirect('product')->with('success', 'Data is successfully updated.');
     }
 
     /**
@@ -98,6 +116,8 @@ class ProductController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $data = Product::findOrFail($id);
+        $data->delete();
+        return redirect('product')->with('success', 'Data is successfully deleted.');                
     }
 }

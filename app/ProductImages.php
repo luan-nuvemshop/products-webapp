@@ -4,10 +4,10 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Product extends Model
+class ProductImages extends Model
 {
     protected $fillable = [
-        'name', 'description', 'price', 'category', 'created_at', 'updated_at'
+        'image', 'product_id', 'created_at', 'updated_at'
     ];
 
     public function productsImage() 

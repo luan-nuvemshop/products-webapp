@@ -20,7 +20,7 @@
         </tr>
         @foreach($data as $row)
             <tr>
-                <td><img src="" alt="" class="img-thumbnail" width="75"></td>
+                <td><img src="/storage/images/{{$row->image}}" class="img-thumbnail" width="150"></td>
                 <td>{{ $row->name }}</td>
                 <td>
                     <a href="{{ route('product.show', $row->id) }}" class="btn btn-primary btn-sm">Show</a>

@@ -36,7 +36,16 @@
             </div>
             <label for="" class="col-md-4 tex-right">Category</label>
             <div class="col-md-8">
-                <input type="text" name="category" class="form-control input-lg" autocomplete="off">
+                <select name="category" class="form-control">
+                    <option value="0">Clothing</option>
+                    <option value="1">Shirts</option>
+                    <option value="2">T-shirts</option>
+                </select>
+            </div>
+            <label for="" class="col-md-4 tex-right">Image</label>
+            <div class="col-md-8">
+                <label for="files" class="btn btn-dark btn-sm">Choose Image</label>
+                <input id="files" type="file" style="visibility:hidden;" name="image">
             </div>
             <br>
             <div class="col-md-8">

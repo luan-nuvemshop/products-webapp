@@ -27,7 +27,11 @@
             </div>
             <label for="" class="col-md-4 tex-right">Category</label>
             <div class="col-md-8">
-                <input type="text" name="category" class="form-control input-lg" value="{{ $data->category }}">
+            <select name="category" class="form-control">
+                <option value="0" {{$data->category == "0"  ? 'selected' : ''}}>Clothing</option>
+                <option value="1" {{$data->category == "1"  ? 'selected' : ''}}>Shirts</option>
+                <option value="2" {{$data->category == "2"  ? 'selected' : ''}}>T-shirts</option>
+            </select>
             </div>
             <br>
             <div class="col-md-8">

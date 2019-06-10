@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Product;
+use App\ProductImages;
 
 class ProductController extends Controller
 {
@@ -14,7 +16,10 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $data = Product::latest()->paginate(5);
+        $data = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('products.*', 'product_images.image')
+            ->paginate(5);
         return view('index', compact('data'))
                 ->with('i', (request()->input('page', 1) -1) * 5);
     }
@@ -41,8 +46,11 @@ class ProductController extends Controller
             'name' => 'required',
             'description' => 'required',
             'price' => 'required',
-            'category' => 'required'
+            'category' => 'required',
+            'image' => 'required|image|max:2048'
         ]);
+
+        
 
         $form_data = array(
             'name' => $request->name,
@@ -51,7 +59,16 @@ class ProductController extends Controller
             'category' => $request->category
         );
 
-        Product::create($form_data);
+        $data = Product::create($form_data);
+
+        $image = $request->file('image');
+        $new_name = rand() . '.' . $image->getClientOriginalName();
+        $path = $request->file('image')->storeAs('/images', $new_name);
+        $productImage = array(
+            'image' => $new_name,
+            'product_id' => $data->id
+        );
+        ProductImages::create($productImage);
 
         return redirect('product')->with('success', 'Data Added successfully.');
     }
@@ -64,7 +81,13 @@ class ProductController extends Controller
      */
     public function show($id)
     {
-        $data = Product::findOrFail($id);
+
+        $data = DB::table('products')
+            ->join('product_images', 'products.id', '=', 'product_images.product_id')
+            ->select('products.*', 'product_images.image')
+            ->where('products.id', '=', $id)
+            ->get();
+
         return view('show', compact('data'));
     }
 

@@ -9,8 +9,8 @@
         </div>
         @foreach($data as $row)
         <img src="/storage/images/{{$row->image}}" class="img-thumbnail" width="300">
-        <h3>{{ $row->name }}</h3>
-        <h5>{{ $row->description }}</h5>
+        <h3>Name: {{ $row->name }}</h3>
+        <h5>Description: {{ $row->description }}</h5>
         <p>${{ $row->price }}</p>
         <p>{{ $row->category == "0"  ? 'Clothing' : '' }}</p>
         <p>{{ $row->category == "1"  ? 'Shirts' : '' }}</p>

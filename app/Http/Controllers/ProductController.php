@@ -45,12 +45,10 @@ class ProductController extends Controller
         $request->validate([
             'name' => 'required',
             'description' => 'required',
-            'price' => 'required',
+            'price' => 'required|numeric',
             'category' => 'required',
             'image' => 'required|image|max:2048'
         ]);
-
-        
 
         $form_data = array(
             'name' => $request->name,
